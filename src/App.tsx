@@ -5,10 +5,10 @@ import ClassState from './components/ClassState'
 function App() {
 
   return (
-    <>
+    <div>
       <UseState name="UseState" />
       <ClassState name="ClassState" />
-    </>
+    </div>
   )
 }
 

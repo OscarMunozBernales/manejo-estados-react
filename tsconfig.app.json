@@ -25,7 +25,8 @@
     "noUncheckedSideEffectImports": true,
 
     "paths": {
-      "@interfaces/*": ["./src/interfaces/*"]
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@components/*": ["./src/components/*"]
     }
   },
   "include": ["src"]

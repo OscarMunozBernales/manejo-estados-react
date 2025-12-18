@@ -9,22 +9,14 @@ export const UseState = (props: PropsUseStateInterface): React.ReactElement => {
     });
 
     React.useEffect(() => {
-        console.log("Empezando el efecto");
-
         if (!!loading) {
             setTimeout(() => {
-                console.log("Haciendo la comprobación");
-
                 setState((prev: StateUseStateInterface) => ({
                     ...prev,
                     loading: false,
                 }));
-
-                console.log("Terminando la comprobación");
             }, 3000);
         }
-
-        console.log("Terminando el efecto");
     }, [ loading ]); // useEffect se vuelve a ejecutar cuando cambia "loading"
 
     return (

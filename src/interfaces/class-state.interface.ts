@@ -4,4 +4,5 @@ export interface PropsClassStateInterface {
 
 export interface StateClassStateInterface {
   error: boolean;
+  loading: boolean;
 }
