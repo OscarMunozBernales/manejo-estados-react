@@ -4,4 +4,5 @@ export interface PropsUseStateInterface {
 
 export interface StateUseStateInterface {
     error: boolean;
+    loading: boolean;
 }
