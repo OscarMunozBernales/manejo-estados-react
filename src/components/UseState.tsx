@@ -1,11 +1,14 @@
 import type { PropsUseStateInterface, StateUseStateInterface } from "@interfaces/use-state.interface";
 import React from "react";
 
+const SECURITY_CODE = "paradigma";
+
 export const UseState = (props: PropsUseStateInterface): React.ReactElement => {
 
-    const [{ error, loading }, setState] = React.useState<StateUseStateInterface>({
+    const [{ error, loading, value }, setState] = React.useState<StateUseStateInterface>({
         error: false,
         loading: false,
+        value: "",
     });
 
     React.useEffect(() => {
@@ -14,6 +17,7 @@ export const UseState = (props: PropsUseStateInterface): React.ReactElement => {
                 setState((prev: StateUseStateInterface) => ({
                     ...prev,
                     loading: false,
+                    error: prev.value !== SECURITY_CODE,
                 }));
             }, 3000);
         }
@@ -33,7 +37,17 @@ export const UseState = (props: PropsUseStateInterface): React.ReactElement => {
                 loading && (<p>Cargando...</p>)
             }
 
-            <input placeholder="Código de seguridad" />
+            <input 
+                placeholder="Código de seguridad" 
+                value={value}
+                onChange={(event) => {
+                    setState((prev: StateUseStateInterface) => ({
+                        ...prev,
+                        error: false,
+                        value: event.target.value,
+                    }));
+                }}
+            />
             <button
                 onClick={() =>
                     setState((prev: StateUseStateInterface) => ({
