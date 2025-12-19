@@ -4,13 +4,16 @@ import type { PropsClassStateInterface, StateClassStateInterface } from "@interf
 import React from "react";
 import Loading from "./Loading.component";
 
+const SECURITY_CODE = "paradigma";
+
 class ClassState extends React.Component<PropsClassStateInterface, StateClassStateInterface> {
 
     constructor(props: PropsClassStateInterface) {
         super(props);
         this.state = {
             error: false,
-            loading: true,
+            loading: false,
+            value: "",
         } as StateClassStateInterface;
     }
 
@@ -43,7 +46,8 @@ class ClassState extends React.Component<PropsClassStateInterface, StateClassSta
             setTimeout(() => {
                 this.setState((prev: StateClassStateInterface) => ({ 
                     ...prev,
-                    loading: !prevState.loading,
+                    loading: false,
+                    error: prev.value !== SECURITY_CODE,
                 }));
 
                 console.log("Terminando la comprobación del código de seguridad");
@@ -56,6 +60,12 @@ class ClassState extends React.Component<PropsClassStateInterface, StateClassSta
     }
 
     render(): React.ReactElement {
+
+        const {
+            error,
+            loading,
+            value,
+        } = this.state
         return (
             <div>
                 <h2>Eliminar {this.props.name}</h2>
@@ -63,14 +73,24 @@ class ClassState extends React.Component<PropsClassStateInterface, StateClassSta
                 <p>Por favor, escribe el código de seguridad.</p>
 
                 {
-                    this.state.error && (<p>Error: el código es incorrecto</p>)
+                    error && (<p>Error: el código es incorrecto</p>)
                 }
 
                 {
-                    this.state.loading && (<Loading />)
+                    loading && (<Loading />)
                 }
 
-                <input placeholder="Código de seguridad" />
+                <input 
+                    placeholder="Código de seguridad" 
+                    value={value}
+                    onChange={(e) => 
+                        this.setState((prev: StateClassStateInterface) => ({
+                            ...prev,
+                            error: false,
+                            value: e.target.value,
+                        }))
+                    }
+                />
                 <button 
                     onClick={() => 
                         this.setState((prev: StateClassStateInterface) => ({ 
